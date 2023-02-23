@@ -20,6 +20,11 @@ class ExerciseActivity : AppCompatActivity() {
     private var exerciseProgressBar =
         0 // variable for exercise timer progress
 
+    private var exerciseTimerDuration:Long = 30
+
+    private var exerciseList: ArrayList<ExerciseModel>? = null
+    private var currentExercisePosition = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExerciseBinding.inflate(layoutInflater)
@@ -34,10 +39,19 @@ class ExerciseActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        exerciseList = Constants.defaultExercises()
+
         setupRestView()
     }
 
     private fun setupRestView() {
+
+        binding?.flRestView?.visibility = View.VISIBLE
+        binding?.tvTitle?.visibility = View.VISIBLE
+        binding?.tvExerciseName?.visibility = View.INVISIBLE
+        binding?.flExerciseView?.visibility = View.INVISIBLE
+        binding?.ivImage?.visibility = View.INVISIBLE
+
 
         /**
          * Here firstly we will check if the timer is running the and it is not null then cancel the running timer and start the new one.
@@ -67,6 +81,7 @@ class ExerciseActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 // when 10 seconds will complete this function will be executed
+                currentExercisePosition++
                 setupExerciseView()
             }
         }.start()
@@ -74,15 +89,20 @@ class ExerciseActivity : AppCompatActivity() {
     }
 
     private fun setupExerciseView() {
-        binding?.flProgressBar?.visibility = View.INVISIBLE
-        binding?.tvTitle?.text = "EXERCISE NAME"
-        binding?.flProgressBarExercise?.visibility = View.VISIBLE
+        binding?.flRestView?.visibility = View.INVISIBLE
+        binding?.tvTitle?.visibility = View.INVISIBLE
+        binding?.tvExerciseName?.visibility = View.VISIBLE
+        binding?.flExerciseView?.visibility = View.VISIBLE
+        binding?.ivImage?.visibility = View.VISIBLE
+
 
         if (exerciseTimer != null) {
             exerciseTimer?.cancel()
             exerciseProgressBar = 0
         }
 
+        binding?.ivImage?.setImageResource(exerciseList!![currentExercisePosition].getImage())
+        binding?.tvExerciseName?.text = exerciseList!![currentExercisePosition].getName()
         setExerciseProgressBar()
     }
 
@@ -96,11 +116,16 @@ class ExerciseActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                Toast.makeText(
-                    this@ExerciseActivity,
-                    "This is 30 seconds completed so now we will add all the exercises.",
-                    Toast.LENGTH_SHORT
-                ).show()
+
+                if (currentExercisePosition < (exerciseList?.size!! -1)){
+                    setupRestView()
+                } else {
+                    Toast.makeText(
+                        this@ExerciseActivity,
+                        "Congratulations! You have completed the 7 minutes workout",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }.start()
     }
