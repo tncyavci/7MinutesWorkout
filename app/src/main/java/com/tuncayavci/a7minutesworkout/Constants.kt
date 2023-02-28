@@ -1,8 +1,8 @@
 package com.tuncayavci.a7minutesworkout
 
 class Constants {
-    companion object{
-        fun defaultExercises(): ArrayList<ExerciseModel>{
+    companion object {
+        fun defaultExercises(): ArrayList<ExerciseModel> {
             val exerciseList = ArrayList<ExerciseModel>()
 
             val jumpingJacks =
