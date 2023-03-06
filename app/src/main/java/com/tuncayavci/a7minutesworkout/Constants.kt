@@ -5,6 +5,7 @@ class Constants {
         fun defaultExercises(): ArrayList<ExerciseModel> {
             val exerciseList = ArrayList<ExerciseModel>()
 
+
             val jumpingJacks =
                 ExerciseModel(
                     1,

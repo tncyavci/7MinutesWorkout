@@ -15,6 +15,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
 
+        val jumping = ExerciseModel(13, "jumping", 12344, false, false)
+        println(jumping.getImage())
         /**
          *  with FindViewById
          *  val flStartButton : FrameLayout = findViewById(R.id.fl_start)
@@ -26,12 +28,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding?.flBMI?.setOnClickListener {
-            val intent = Intent(this,BMIActivity::class.java)
+            val intent = Intent(this, BMIActivity::class.java)
             startActivity(intent)
         }
 
         binding?.flHistory?.setOnClickListener {
-            val intent = Intent( this,HistoryActivity::class.java)
+            val intent = Intent(this, HistoryActivity::class.java)
             startActivity(intent)
         }
     }

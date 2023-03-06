@@ -14,7 +14,9 @@ class BMIActivity : AppCompatActivity() {
         private const val METRICS_UNIT_VIEW = "METRICS_UNIT_VIEW" // Metrics unit view
         private const val US_UNITS_VIEW = "US_UNITS_VIEW" // US unit view
     }
-    private var currentVisibleView: String = METRICS_UNIT_VIEW //  variable to hold value to make selected iew visible
+
+    private var currentVisibleView: String =
+        METRICS_UNIT_VIEW //  variable to hold value to make selected iew visible
 
     private var binding: ActivityBmiactivityBinding? = null
 
@@ -35,9 +37,9 @@ class BMIActivity : AppCompatActivity() {
         makeVisibleMetricsUnitView()
 
         binding?.rgUnits?.setOnCheckedChangeListener { _, checkedId: Int ->
-            if (checkedId == R.id.rbMetricUnits){
+            if (checkedId == R.id.rbMetricUnits) {
                 makeVisibleMetricsUnitView()
-            }else{
+            } else {
                 makeVisibleUsUnitsView()
             }
         }
@@ -48,13 +50,14 @@ class BMIActivity : AppCompatActivity() {
         }
     }
 
-    private fun calculateUnits(){
+    private fun calculateUnits() {
         if (currentVisibleView == METRICS_UNIT_VIEW) {
             // The values are validated.
             if (validateMetricUnits()) {
 
                 // The height value is converted to float value and divided by 100 to convert it to meter.
-                val heightValue: Float = binding?.etMetricUnitHeight?.text.toString().toFloat() / 100
+                val heightValue: Float =
+                    binding?.etMetricUnitHeight?.text.toString().toFloat() / 100
 
                 // The weight value is converted to float value
                 val weightValue: Float = binding?.etMetricUnitWeight?.text.toString().toFloat()
@@ -113,7 +116,7 @@ class BMIActivity : AppCompatActivity() {
         return isValid
     }
 
-    private fun validateUsUnits() : Boolean {
+    private fun validateUsUnits(): Boolean {
         var isValid = true
 
         when {
